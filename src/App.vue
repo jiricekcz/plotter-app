@@ -1,17 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <BasicCompiler/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import BasicCompiler from "./components/BasicCompiler.vue";
+@Options({
   components: {
-    HelloWorld
-  }
-}
+    BasicCompiler
+  },
+})
+export default class App extends Vue {}
 </script>
 
 <style>
