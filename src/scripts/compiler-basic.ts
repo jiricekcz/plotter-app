@@ -49,6 +49,9 @@ export abstract class Segment {
             return Number(v);
         });
         switch (name) {
+            case "circle":
+                if (argsParsed.length != 3 || !argsParsed.every(v => typeof v == "number")) throw new Error("Invalid use of the circle shape. Expected 3 number arguments.")
+                return new Circle(...(<[number, number, number]>argsParsed));
             case "regPolygon":
                 if (argsParsed.length != 5 && argsParsed.length != 4 || !argsParsed.every(v => typeof v == "number")) throw new Error("Invalid use of the regular polygon shape. Expected 4 or 5 number arguments.")
                 return new RegularPolygon(...(<[number, number, number, number, number]>argsParsed));
@@ -98,7 +101,7 @@ export class Line extends Segment {
         return `line(${this.arguments.join(", ")});`
     }
     get pss(): string {
-        return `goto ${this.x1} ${this.y2}\npush\ngoto ${this.x2} ${this.x2}\npull`;
+        return `goto ${this.x1} ${this.y1}\npush\ngoto ${this.x2} ${this.y2}\npull`;
     }
 }
 export class RegularPolygon extends Segment {
@@ -123,7 +126,7 @@ export class RegularPolygon extends Segment {
         for (let i = 1; i < points.length; i++) {
             rv += `goto ${points[i].join(" ")}\n`;
         }
-        rv += "pull"
+        rv += `goto ${points[0].join(" ")}\npull`;
         return rv;
     }
     toString(): string {
@@ -136,6 +139,11 @@ export class RegularPolygon extends Segment {
             rv.push(movePointPolar([this.x, this.y], this.r, angleIncrement * i + this.rotation));
         }
         return rv;
+    }
+}
+export class Circle extends RegularPolygon {
+    constructor(x: number, y: number, r: number) {
+        super(x, y, r, Math.round(2 * Math.PI * r / 1));
     }
 }
 export function movePointPolar(point: [number, number], mag: number, angle: number): [number, number] {

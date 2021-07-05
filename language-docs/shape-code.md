@@ -22,3 +22,9 @@ Example:
 ```js
 regPolygon(100, 100, 50, 3);
 ```
+
+### Circle
+The `circle` shape will print a circle around a center. It takes three arguments - X, Y, Radius
+```js
+circle(100, 100, 50);
+```
