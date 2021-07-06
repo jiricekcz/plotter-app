@@ -11,7 +11,6 @@ export function draw(context: CanvasRenderingContext2D, pssScript: string): void
 export function instruction(context: CanvasRenderingContext2D, instruction: string): void {
     const ins = instruction.split(" ")[0];
     const res = instruction.replace(ins + " ", "").split(" ").map(v => v.trim());
-    (<any>window).c = context;
     switch (ins) {
         case "goto":
             console.log("aha")

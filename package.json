@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build && npm run build electron",
+    "lint": "vue-cli-service lint",
+    "build-electron": "cd electron-src && tsc",
+    "start-electron": "cd electron && electron ."
   },
   "dependencies": {
+    "electron": "^13.1.6",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0"
   },
