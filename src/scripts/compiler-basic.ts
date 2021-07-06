@@ -44,7 +44,7 @@ export abstract class Segment {
                 args += char;
             }
         }
-        const argsParsed = args.replaceAll(" ", "").split(",").map(v => {
+        const argsParsed = args.split(" ").join("").split(",").map(v => {
             if (Number.isNaN(Number(v))) return v;
             return Number(v);
         });
