@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && npm run build electron",
+    "build": "vue-cli-service build && npm run build-electron",
     "lint": "vue-cli-service lint",
     "build-electron": "cd electron-src && tsc",
     "start-electron": "cd electron && electron ."
