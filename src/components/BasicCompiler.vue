@@ -29,6 +29,20 @@ export default class BasicCompiler extends Vue {
     if (this.canvas) {
       PSS.draw(this.canvas, compiledCode);
     }
+    console.log(
+      JSON.stringify({
+        data: compiledCode,
+      })
+    );
+    fetch("http://localhost:9753/compile/", {
+      method: "POST",
+      body: JSON.stringify({
+        data: compiledCode,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return compiledCode;
   }
   mounted(): void {

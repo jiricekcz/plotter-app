@@ -1,13 +1,18 @@
 // main.js
 
 // Modules to control application life and create native browser window
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import * as listener from "./listener";
+
 
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         width: 1400,
-        height: 600
+        height: 600,
+        webPreferences: {
+            enableRemoteModule: true
+        }
     })
 
     // and load the index.html of the app.
@@ -39,3 +44,12 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on("synchronous-message", (event, arg) => {
+    console.log(arg);
+    const m = JSON.parse(arg);
+    if (m?.type == "run") {
+        console.log(m.data);
+    }
+});
+listener.init();
