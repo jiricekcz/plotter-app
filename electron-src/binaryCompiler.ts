@@ -30,8 +30,8 @@ export function compile(pssCode: string): Buffer {
                 let x = BigInt.asUintN(32, BigInt(Math.round(Number(inst.split(" ")[1]) * 10000)));
                 let y = BigInt.asUintN(32, BigInt(Math.round(Number(inst.split(" ")[2]) * 10000)));
                 if (Number.isNaN(x + y)) throw new Error("Invalid goto statement.");
-                const xB = bigintBuffer.toBufferBE(x, 4);
-                const yB = bigintBuffer.toBufferBE(y, 4);
+                const xB = bigintBuffer.toBufferLE(x, 4);
+                const yB = bigintBuffer.toBufferLE(y, 4);
                 arr.push(xB[0], xB[1], xB[2], xB[3], yB[0], yB[1], yB[2], yB[3]);
                 break;
         }
