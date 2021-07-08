@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import fs from 'fs';
+
 import * as binaryCompiler from './binaryCompiler';
 
 
@@ -14,7 +16,9 @@ server.post("/compile/", (req, res) => {
     const body = <any>req.body;
     console.log(body);
     try {
-        console.log(binaryCompiler.compile(body.data));
+        const data = binaryCompiler.compile(body.data);
+        console.log(data);
+        fs.writeFileSync("../instructions.bin", data);
     } catch (e) {
         console.log(e);
     }
